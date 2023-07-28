@@ -68,4 +68,6 @@ api.add_resource(Login, '/login')
 api.add_resource(Trigger, '/trigger/<string:jobstatus>')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(
+        debug=True,
+        port=8080)
