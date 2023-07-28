@@ -1,3 +1,4 @@
 requests
 flask
+flask_restful
 # Add other dependencies here
