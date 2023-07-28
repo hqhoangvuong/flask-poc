@@ -1,6 +1,6 @@
 requests
 flask
 flask_restful
-jwt
+PyJWT
 datetime
 # Add other dependencies here
