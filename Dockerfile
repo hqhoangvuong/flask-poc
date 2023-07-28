@@ -10,5 +10,8 @@ COPY . /app
 # Install any required dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Expose the TCP port that your app listens on
+EXPOSE 8080
+
 # Set the entry point for the container
 CMD ["python", "main.py"]
