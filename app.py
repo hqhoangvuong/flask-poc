@@ -93,6 +93,7 @@ class Login(Resource):
 class Trigger(Resource):
     @jwt_required
     def get(self, jobstatus):
+        logging.info('Triggering job status {jobstatus} triggered by user {request.user}')
         return {'message': f"Job status '{jobstatus}' triggered by user '{request.user}'"}
 
 
