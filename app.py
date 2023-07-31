@@ -13,6 +13,9 @@ api = Api(app,
 
 ns = api.namespace('', description='AWS Glue operations PoC')
 
+logging.basicConfig(level=logging.DEBUG)
+
+
 SECRET_KEY = '}FR!iP>Ik`kZJi+_iaaacx34F>ZX-u@vF1O%mYlZB2RmMq,Bv+5r\WF5OKT~L::*QwXdC'
 
 user_env = os.environ.get('USER_LIST')
