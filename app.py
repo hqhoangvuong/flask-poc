@@ -1,16 +1,17 @@
 from flask import Flask, request
-import werkzeug
-werkzeug.cached_property = werkzeug.utils.cached_property
-from flask_restplus import Api, Resource
+from flask_restx import Api, Resource
 import jwt
 import datetime
 import logging
 import os
 
 app = Flask(__name__)
-api = Api(app)
+api = Api(app,
+          version=1.0,
+          title='AWS Glue operations PoC',
+          description='AWS Glue operations PoC')
 
-ns = api.namespace('todos', description='TODO operations')
+ns = api.namespace('', description='AWS Glue operations PoC')
 
 SECRET_KEY = '}FR!iP>Ik`kZJi+_iaaacx34F>ZX-u@vF1O%mYlZB2RmMq,Bv+5r\WF5OKT~L::*QwXdC'
 
@@ -33,7 +34,7 @@ else:
 def generate_jwt_token(username):
     payload = {
         'username': username,
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(hours = 1) 
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1)
     }
 
     token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
@@ -60,6 +61,7 @@ def jwt_required(func):
 
 
 # Endpoint definitions
+@ns.route('/login')
 class Login(Resource):
     def post(self):
         data = request.get_json()
@@ -83,20 +85,20 @@ class Login(Resource):
 
         return {'token': token}, 200
 
+
+@ns.route('/trigger/<string:jobstatus>')
 class Trigger(Resource):
     @jwt_required
     def get(self, jobstatus):
         return {'message': f"Job status '{jobstatus}' triggered by user '{request.user}'"}
-    
 
+
+@ns.route('/health')
 class HealthCheck(Resource):
     def get(self):
+        logging.info('Health check Ok')
         return {'status': 'healthy'}, 200
-    
 
-api.add_resource(Login, '/login')
-api.add_resource(Trigger, '/trigger/<string:jobstatus>')
-api.add_resource(HealthCheck, '/health')
 
 if __name__ == '__main__':
     app.run(

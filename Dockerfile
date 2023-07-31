@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8080
 
 # Set the entry point for the container
-CMD ["python", "main.py"]
+CMD ["python", "app.py"]
