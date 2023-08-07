@@ -101,7 +101,7 @@ class Trigger(Resource):
 class HealthCheck(Resource):
     def get(self):
         logging.info('Health check Ok')
-        return {'status': 'healthy'}, 200
+        return {'status': 'Hi mom'}, 200
 
 
 if __name__ == '__main__':
